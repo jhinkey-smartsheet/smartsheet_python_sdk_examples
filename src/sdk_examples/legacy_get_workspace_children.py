@@ -21,6 +21,8 @@ def main() -> None:
     )
     assert isinstance(workspace, smartsheet.models.workspace.Workspace)
 
+    for child in workspace.folders:
+        print(f"Folder: {child.name}")
     for child in workspace.sheets:
         print(f"Sheet: {child.name}")
     for child in workspace.reports or []:
