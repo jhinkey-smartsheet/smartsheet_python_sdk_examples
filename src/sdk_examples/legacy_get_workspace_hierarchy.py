@@ -4,6 +4,18 @@ from smartsheet.models import Folder, Sheet, Report, Sight, Template
 
 import smartsheet
 
+
+def print_folder_hierarchy(folder: Folder):
+    # Recursively call the function to print the folder hierarchy
+    def print_hierarchy(folder: Folder, level=1):
+        indent = "  " * level
+        print(f"{indent}- {folder.name} (ID: {folder.id})")
+        
+        for child in folder.folders:
+            print_hierarchy(child, level + 1)
+
+    print_hierarchy(folder)
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("workspace_id", type=int, help="Smartsheet workspace ID")
@@ -16,21 +28,15 @@ def main() -> None:
 
     smart = smartsheet.Smartsheet(token)
  
+    # Call Workspaces.get_workspace(...) to get the workspace's folder hierarchy
     workspace = smart.Workspaces.get_workspace(
-        workspace_id
+        workspace_id, 
+        load_all=True
     )
     assert isinstance(workspace, smartsheet.models.workspace.Workspace)
 
-    for child in workspace.folders:
-        print(f"Folder: {child.name}")
-    for child in workspace.sheets:
-        print(f"Sheet: {child.name}")
-    for child in workspace.reports or []:
-        print(f"Report: {child.name}")
-    for child in workspace.sights or []:
-        print(f"Sight: {child.name}")
-    for child in workspace.templates or []:
-        print(f"Template: {child.name}")
+    for folder in workspace.folders:
+        print_folder_hierarchy(folder)
 
 if __name__ == "__main__":
     main()
