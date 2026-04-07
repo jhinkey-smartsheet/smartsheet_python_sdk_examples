@@ -26,7 +26,7 @@ def main() -> None:
     response = smart.Workspaces.get_workspace(workspace_id)
     assert isinstance(response, smartsheet.models.workspace.Workspace)
 
-    workspace = response.name, response.id, response.permalink, response.access_level
+    workspace = response
 
     for child in response.folders:
         folders.append(child)
@@ -45,5 +45,6 @@ def main() -> None:
     print(f"reports: {reports}")
     print(f"sights: {sights}")
     print(f"templates: {templates}")
+
 if __name__ == "__main__":
     main()
