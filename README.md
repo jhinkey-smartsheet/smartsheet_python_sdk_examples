@@ -39,6 +39,13 @@ Lists workspace children (folders, sheets, reports, sights, templates) using pag
 
 - `python src/sdk_examples/get_workspace_children.py $env:WORKSPACE_ID`
 
+### `src/sdk_examples/get_folder_children.py`
+
+Lists folder children (folders, sheets, reports, sights, templates) using paginated children APIs.
+
+- `$env:FOLDER_ID = "<your-folder-id>"`
+- `python src/sdk_examples/get_folder_children.py $env:FOLDER_ID`
+
 ### `src/sdk_examples/collect_all_workspace_sheet_ids.py`
 
 Traverses nested folders in a workspace and prints all sheet IDs.
